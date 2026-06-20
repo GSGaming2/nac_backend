@@ -6,20 +6,42 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "migrate:mysql": "cross-env DB_MODE=LOCAL_MYSQL pnpx prisma migrate dev",
+    "migrate:pg": "cross-env DB_MODE=CLOUD_POSTGRES pnpx prisma migrate dev",
+    "deploy:mysql": "cross-env DB_MODE=LOCAL_MYSQL pnpx prisma migrate deploy",
+    "deploy:pg": "cross-env DB_MODE=CLOUD_POSTGRES pnpx prisma migrate deploy"
   },
   "dependencies": {
+    "@prisma/adapter-libsql": "^7.8.0",
+    "@prisma/adapter-mariadb": "^7.8.0",
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "@prisma/client-runtime-utils": "^7.8.0",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "jose": "^6.2.3",
+    "jsonwebtoken": "^9.0.3",
+    "mariadb": "^3.5.3",
     "next": "16.2.9",
+    "pg": "^8.21.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "redis": "^6.0.0",
+    "socket.io": "^4.8.3",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/bcrypt": "^6.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "prisma": "^7.8.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
