@@ -1,9 +1,14 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import bcrypt from "bcryptjs";
+import { rateLimit } from "@/app/lib/rateLimit";
+import bcrypt from "bcrypt";
 
 import { prisma } from "@/app/lib/prisma";
 import { signAuthToken } from "@/app/lib/auth";
+import { headers } from "next/headers";
+
+const ip = (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() ?? "local";
+const rl = await rateLimit(`rl:login:${ip}`, 10, 60);
 
 const LoginSchema = z.object({
   email: z.string().trim().toLowerCase().email(),
@@ -24,6 +29,11 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { email, password } = LoginSchema.parse(body);
 
+    // Rate limiting
+    if (!rl.allowed) {
+      return NextResponse.json({ status: "error", message: "Too many attempts" }, { status: 429 });
+    }
+
     const [user, admin] = await Promise.all([
     prisma.user.findUnique({
       where: { email },
@@ -36,30 +46,24 @@ export async function POST(req: Request) {
     const account = admin ?? user;
     const userType = admin ? "admin" : "user";
 
-    if (!account) {
-      return NextResponse.json(
-        {
-          status: "error",
-          message: "User not found",
-        },
-        { status: 401 }
-      );
-    }
+    if (!account) return NextResponse.json({
+      status: "error",
+      message: "User not found",
+    },
+    { status: 401 }
+    );
 
     const passwordMatches = await bcrypt.compare(
       password,
       account.passwordHash
     );
 
-    if (!passwordMatches) {
-      return NextResponse.json(
-        {
-          status: "error",
-          message: "Invalid credentials",
-        },
-        { status: 401 }
-      );
-    }
+    if (!passwordMatches) return NextResponse.json({
+      status: "error",
+      message: "Invalid credentials",
+    },
+    { status: 401 }
+    );
 
     const token = await signAuthToken({
       sub: String(account.id),
@@ -81,16 +85,13 @@ export async function POST(req: Request) {
 
     return response;
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        {
+    if (error instanceof z.ZodError) return NextResponse.json({
           status: "error",
           message: "Invalid request data",
           errors: error.flatten().fieldErrors,
         },
         { status: 400 }
       );
-    }
 
     console.error("Login Error:", error);
 

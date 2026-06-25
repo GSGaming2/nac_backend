@@ -7,14 +7,73 @@ generator client {
   output   = "../src/generated/client-mysql"
 }
 
+enum Role {
+  user
+  admin
+}
+
+enum Plan {
+  MONTHLY
+  YEARLY
+}
+
+enum SubscriptionStatus {
+  INCOMPLETE
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  UNPAID
+}
+
+enum PendingStatus {
+  CREATED
+  CHECKOUT_CREATED
+  PAID
+  CODE_SENT
+  VERIFIED
+  EXPIRED
+}
+
+model PendingRegistration {
+  id               String        @id @default(cuid())
+  email            String        @unique
+  passwordHash     String
+  plan             Plan
+
+  status           PendingStatus @default(CREATED)
+
+  stripeSessionId  String?       @unique
+  stripeCustomerId String?
+  stripeSubId      String?
+
+  codeHash         String?
+  codeExpiresAt    DateTime?
+  currentPeriodEnd DateTime?
+
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@map("pending_registrations")
+}
+
 model User {
   id           Int      @id @default(autoincrement())
   email        String   @unique
   passwordHash String
-  paymentCode  String?
-  role         String   @default("user")
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  role         Role     @default(user)
+
+  // Stripe subscription linkage (for enforcing access)
+  plan               Plan?
+  stripeCustomerId   String?
+  stripeSubscriptionId String? @unique
+  subscriptionStatus SubscriptionStatus @default(INCOMPLETE)
+  currentPeriodEnd   DateTime?
+
+  // Optional: useful for audits / gating logic
+  activatedAt   DateTime?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@map("users")
 }
@@ -24,7 +83,7 @@ model Admin {
   username     String   @unique
   email        String   @unique
   passwordHash String
-  role         String   @default("admin")
+  role         Role     @default(admin)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 

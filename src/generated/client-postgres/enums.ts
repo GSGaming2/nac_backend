@@ -9,7 +9,21 @@
 * 🟢 You can import this file directly.
 */
 
+export const Plan = {
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY'
+} as const
+
+export type Plan = (typeof Plan)[keyof typeof Plan]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const PendingStatus = {
+  CREATED: 'CREATED',
+  CHECKOUT_CREATED: 'CHECKOUT_CREATED',
+  PAID: 'PAID',
+  CODE_SENT: 'CODE_SENT',
+  VERIFIED: 'VERIFIED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type PendingStatus = (typeof PendingStatus)[keyof typeof PendingStatus]
