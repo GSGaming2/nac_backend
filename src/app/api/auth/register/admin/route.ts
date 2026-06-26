@@ -25,7 +25,7 @@ export async function POST(req: Request) {
         username,
         email: normalizedEmail,
         passwordHash,
-        role,
+        role: role as "admin",
       },
       select: { id: true, email: true, username: true, role: true },
     });
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
       sub: String(admin.id),
       type: "admin",
       email: admin.email,
-      role: admin.role as "user" | "admin",
+      role: admin.role,
     });
 
     const res = NextResponse.json(

@@ -9,12 +9,31 @@
 * 🟢 You can import this file directly.
 */
 
+export const Role = {
+  user: 'user',
+  admin: 'admin'
+} as const
+
+export type Role = (typeof Role)[keyof typeof Role]
+
+
 export const Plan = {
   MONTHLY: 'MONTHLY',
   YEARLY: 'YEARLY'
 } as const
 
 export type Plan = (typeof Plan)[keyof typeof Plan]
+
+
+export const SubscriptionStatus = {
+  INCOMPLETE: 'INCOMPLETE',
+  ACTIVE: 'ACTIVE',
+  PAST_DUE: 'PAST_DUE',
+  CANCELED: 'CANCELED',
+  UNPAID: 'UNPAID'
+} as const
+
+export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
 
 
 export const PendingStatus = {

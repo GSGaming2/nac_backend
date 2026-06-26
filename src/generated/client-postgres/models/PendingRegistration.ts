@@ -35,6 +35,7 @@ export type PendingRegistrationMinAggregateOutputType = {
   stripeSubId: string | null
   codeHash: string | null
   codeExpiresAt: Date | null
+  currentPeriodEnd: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -50,6 +51,7 @@ export type PendingRegistrationMaxAggregateOutputType = {
   stripeSubId: string | null
   codeHash: string | null
   codeExpiresAt: Date | null
+  currentPeriodEnd: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -65,6 +67,7 @@ export type PendingRegistrationCountAggregateOutputType = {
   stripeSubId: number
   codeHash: number
   codeExpiresAt: number
+  currentPeriodEnd: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -82,6 +85,7 @@ export type PendingRegistrationMinAggregateInputType = {
   stripeSubId?: true
   codeHash?: true
   codeExpiresAt?: true
+  currentPeriodEnd?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -97,6 +101,7 @@ export type PendingRegistrationMaxAggregateInputType = {
   stripeSubId?: true
   codeHash?: true
   codeExpiresAt?: true
+  currentPeriodEnd?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -112,6 +117,7 @@ export type PendingRegistrationCountAggregateInputType = {
   stripeSubId?: true
   codeHash?: true
   codeExpiresAt?: true
+  currentPeriodEnd?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -200,6 +206,7 @@ export type PendingRegistrationGroupByOutputType = {
   stripeSubId: string | null
   codeHash: string | null
   codeExpiresAt: Date | null
+  currentPeriodEnd: Date | null
   createdAt: Date
   updatedAt: Date
   _count: PendingRegistrationCountAggregateOutputType | null
@@ -236,6 +243,7 @@ export type PendingRegistrationWhereInput = {
   stripeSubId?: Prisma.StringNullableFilter<"PendingRegistration"> | string | null
   codeHash?: Prisma.StringNullableFilter<"PendingRegistration"> | string | null
   codeExpiresAt?: Prisma.DateTimeNullableFilter<"PendingRegistration"> | Date | string | null
+  currentPeriodEnd?: Prisma.DateTimeNullableFilter<"PendingRegistration"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PendingRegistration"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PendingRegistration"> | Date | string
 }
@@ -251,6 +259,7 @@ export type PendingRegistrationOrderByWithRelationInput = {
   stripeSubId?: Prisma.SortOrderInput | Prisma.SortOrder
   codeHash?: Prisma.SortOrderInput | Prisma.SortOrder
   codeExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  currentPeriodEnd?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -269,6 +278,7 @@ export type PendingRegistrationWhereUniqueInput = Prisma.AtLeast<{
   stripeSubId?: Prisma.StringNullableFilter<"PendingRegistration"> | string | null
   codeHash?: Prisma.StringNullableFilter<"PendingRegistration"> | string | null
   codeExpiresAt?: Prisma.DateTimeNullableFilter<"PendingRegistration"> | Date | string | null
+  currentPeriodEnd?: Prisma.DateTimeNullableFilter<"PendingRegistration"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PendingRegistration"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PendingRegistration"> | Date | string
 }, "id" | "email" | "stripeSessionId">
@@ -284,6 +294,7 @@ export type PendingRegistrationOrderByWithAggregationInput = {
   stripeSubId?: Prisma.SortOrderInput | Prisma.SortOrder
   codeHash?: Prisma.SortOrderInput | Prisma.SortOrder
   codeExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  currentPeriodEnd?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PendingRegistrationCountOrderByAggregateInput
@@ -305,6 +316,7 @@ export type PendingRegistrationScalarWhereWithAggregatesInput = {
   stripeSubId?: Prisma.StringNullableWithAggregatesFilter<"PendingRegistration"> | string | null
   codeHash?: Prisma.StringNullableWithAggregatesFilter<"PendingRegistration"> | string | null
   codeExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PendingRegistration"> | Date | string | null
+  currentPeriodEnd?: Prisma.DateTimeNullableWithAggregatesFilter<"PendingRegistration"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PendingRegistration"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PendingRegistration"> | Date | string
 }
@@ -320,6 +332,7 @@ export type PendingRegistrationCreateInput = {
   stripeSubId?: string | null
   codeHash?: string | null
   codeExpiresAt?: Date | string | null
+  currentPeriodEnd?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -335,6 +348,7 @@ export type PendingRegistrationUncheckedCreateInput = {
   stripeSubId?: string | null
   codeHash?: string | null
   codeExpiresAt?: Date | string | null
+  currentPeriodEnd?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -350,6 +364,7 @@ export type PendingRegistrationUpdateInput = {
   stripeSubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -365,6 +380,7 @@ export type PendingRegistrationUncheckedUpdateInput = {
   stripeSubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -380,6 +396,7 @@ export type PendingRegistrationCreateManyInput = {
   stripeSubId?: string | null
   codeHash?: string | null
   codeExpiresAt?: Date | string | null
+  currentPeriodEnd?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -395,6 +412,7 @@ export type PendingRegistrationUpdateManyMutationInput = {
   stripeSubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -410,6 +428,7 @@ export type PendingRegistrationUncheckedUpdateManyInput = {
   stripeSubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -425,6 +444,7 @@ export type PendingRegistrationCountOrderByAggregateInput = {
   stripeSubId?: Prisma.SortOrder
   codeHash?: Prisma.SortOrder
   codeExpiresAt?: Prisma.SortOrder
+  currentPeriodEnd?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -440,6 +460,7 @@ export type PendingRegistrationMaxOrderByAggregateInput = {
   stripeSubId?: Prisma.SortOrder
   codeHash?: Prisma.SortOrder
   codeExpiresAt?: Prisma.SortOrder
+  currentPeriodEnd?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -455,6 +476,7 @@ export type PendingRegistrationMinOrderByAggregateInput = {
   stripeSubId?: Prisma.SortOrder
   codeHash?: Prisma.SortOrder
   codeExpiresAt?: Prisma.SortOrder
+  currentPeriodEnd?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -496,6 +518,7 @@ export type PendingRegistrationSelect<ExtArgs extends runtime.Types.Extensions.I
   stripeSubId?: boolean
   codeHash?: boolean
   codeExpiresAt?: boolean
+  currentPeriodEnd?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["pendingRegistration"]>
@@ -511,6 +534,7 @@ export type PendingRegistrationSelectCreateManyAndReturn<ExtArgs extends runtime
   stripeSubId?: boolean
   codeHash?: boolean
   codeExpiresAt?: boolean
+  currentPeriodEnd?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["pendingRegistration"]>
@@ -526,6 +550,7 @@ export type PendingRegistrationSelectUpdateManyAndReturn<ExtArgs extends runtime
   stripeSubId?: boolean
   codeHash?: boolean
   codeExpiresAt?: boolean
+  currentPeriodEnd?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["pendingRegistration"]>
@@ -541,11 +566,12 @@ export type PendingRegistrationSelectScalar = {
   stripeSubId?: boolean
   codeHash?: boolean
   codeExpiresAt?: boolean
+  currentPeriodEnd?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PendingRegistrationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "plan" | "status" | "stripeSessionId" | "stripeCustomerId" | "stripeSubId" | "codeHash" | "codeExpiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["pendingRegistration"]>
+export type PendingRegistrationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "plan" | "status" | "stripeSessionId" | "stripeCustomerId" | "stripeSubId" | "codeHash" | "codeExpiresAt" | "currentPeriodEnd" | "createdAt" | "updatedAt", ExtArgs["result"]["pendingRegistration"]>
 
 export type $PendingRegistrationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PendingRegistration"
@@ -561,6 +587,7 @@ export type $PendingRegistrationPayload<ExtArgs extends runtime.Types.Extensions
     stripeSubId: string | null
     codeHash: string | null
     codeExpiresAt: Date | null
+    currentPeriodEnd: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["pendingRegistration"]>
@@ -996,6 +1023,7 @@ export interface PendingRegistrationFieldRefs {
   readonly stripeSubId: Prisma.FieldRef<"PendingRegistration", 'String'>
   readonly codeHash: Prisma.FieldRef<"PendingRegistration", 'String'>
   readonly codeExpiresAt: Prisma.FieldRef<"PendingRegistration", 'DateTime'>
+  readonly currentPeriodEnd: Prisma.FieldRef<"PendingRegistration", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"PendingRegistration", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PendingRegistration", 'DateTime'>
 }

@@ -83,6 +83,7 @@ export const PendingRegistrationScalarFieldEnum = {
   stripeSubId: 'stripeSubId',
   codeHash: 'codeHash',
   codeExpiresAt: 'codeExpiresAt',
+  currentPeriodEnd: 'currentPeriodEnd',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -94,8 +95,13 @@ export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   passwordHash: 'passwordHash',
-  paymentCode: 'paymentCode',
   role: 'role',
+  plan: 'plan',
+  stripeCustomerId: 'stripeCustomerId',
+  stripeSubscriptionId: 'stripeSubscriptionId',
+  subscriptionStatus: 'subscriptionStatus',
+  currentPeriodEnd: 'currentPeriodEnd',
+  activatedAt: 'activatedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
