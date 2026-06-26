@@ -1,10 +1,21 @@
 import { createClient } from "redis";
 
-export const redis = createClient({ url: process.env.REDIS_URL });
+const globalForRedis = globalThis as {
+  redis?: ReturnType<typeof createClient>;
+};
 
-redis.on("error", (err) => console.error("Redis error", err));
+export const redis =
+  globalForRedis.redis ??
+  createClient({
+    url: process.env.REDIS_URL,
+  });
 
-// Connect once (Node runtime)
-if (!redis.isOpen) {
+if (!globalForRedis.redis) {
+  redis.on("error", (err) => {
+    console.error("Redis Error:", err);
+  });
+
   await redis.connect();
+
+  globalForRedis.redis = redis;
 }
