@@ -20,7 +20,7 @@ export function middleware(request: NextRequest) {
     );
 
   if (isAllowed) {
-    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set("Access-Control-Allow-Origin", origin);
     response.headers.set("Access-Control-Allow-Credentials", "true");
   }
 
