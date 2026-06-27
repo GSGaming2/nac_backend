@@ -76,12 +76,6 @@ export async function POST(req: Request) {
           }
         }
 
-        // Send email first
-        await sendVerificationCodeEmail(
-          pending.email,
-          code
-        );
-
         await prisma.$transaction(async (tx) => {
           await tx.pendingRegistration.update({
             where: {
@@ -103,6 +97,21 @@ export async function POST(req: Request) {
             },
           });
         });
+
+        // Send email first
+        try {
+              console.log("Sending email to:", pending.email);
+
+              const result = await sendVerificationCodeEmail(
+                pending.email,
+                code
+              );
+
+              console.log("Resend response:", result);
+            } catch (error) {
+              console.error("Email sending failed:", error);
+              throw error;
+            }
 
         break;
       }
