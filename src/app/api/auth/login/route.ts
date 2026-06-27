@@ -74,8 +74,8 @@ export async function POST(req: Request) {
     status: "ok",
     redirect:
       userType === "admin"
-        ? "/admin/me"
-        : "/me",
+        ? "/me/admin"
+        : "/me/user",
     account: {
       id: account.id,
       email: account.email,
