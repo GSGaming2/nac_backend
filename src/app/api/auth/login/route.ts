@@ -67,18 +67,22 @@ export async function POST(req: Request) {
       sub: String(account.id),
       type: userType,
       email: account.email,
-      role: account.role as "user" | "admin",
+      role: account.role as "user",
     });
 
     const response = NextResponse.json({
-      status: "ok",
-      account: {
-        id: account.id,
-        email: account.email,
-        role: account.role,
-      },
+    status: "ok",
+    redirect:
+      userType === "admin"
+        ? "/admin/me"
+        : "/me",
+    account: {
+      id: account.id,
+      email: account.email,
+      role: account.role,
+      type: userType,
+    },
     });
-
     response.cookies.set("auth_token", token, AUTH_COOKIE_OPTIONS);
 
     return response;
