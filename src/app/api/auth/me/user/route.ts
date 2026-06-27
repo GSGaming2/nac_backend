@@ -1,33 +1,41 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import { verifyAuthToken } from "@/app/lib/auth";
 
-export async function GET() {
-  const token = (await cookies()).get("auth_token")?.value;
+export async function GET(req: Request) {
+  const authHeader = req.headers.get("authorization");
 
-  if (!token) {
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return NextResponse.json(
-      { status: "error", message: "Not authenticated" },
+      {
+        status: "error",
+        message: "Not authenticated",
+      },
       { status: 401 }
     );
   }
+
+  const token = authHeader.substring(7);
 
   try {
     const payload = await verifyAuthToken(token);
 
     return NextResponse.json({
       status: "ok",
-      me: {
+      user: {
         id: payload.sub,
-        type: payload.type,
         email: payload.email,
         role: payload.role,
-        message: "User authenticated successfully",
+        type: payload.type,
       },
     });
-  } catch {
+  } catch (error) {
+    console.error(error);
+
     return NextResponse.json(
-      { status: "error", message: "Invalid token" },
+      {
+        status: "error",
+        message: "Invalid token",
+      },
       { status: 401 }
     );
   }

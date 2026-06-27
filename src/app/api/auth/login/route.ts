@@ -15,7 +15,7 @@ const LoginSchema = z.object({
 const AUTH_COOKIE_OPTIONS = {
   httpOnly: true,
   secure: true,
-  sameSite: "lax" as const,
+  sameSite: "none" as const,
   path: "/",
   maxAge: 60 * 60 * 24 * 7, // 7 days
 };
