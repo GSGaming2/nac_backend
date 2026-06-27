@@ -14,6 +14,7 @@ function generateVerificationCode() {
 }
 
 export async function POST(req: Request) {
+  console.log("🔥 WEBHOOK HIT");
   try {
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
