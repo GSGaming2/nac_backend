@@ -61,20 +61,23 @@ export async function POST(req: Request) {
 
         const codeExpiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
-        let currentPeriodEnd: Date | null = null;
+      let currentPeriodEnd: Date | null = null;
 
+      try {
         if (session.subscription) {
           const subscription = await stripe.subscriptions.retrieve(
             String(session.subscription)
           );
 
-          // Depending on Stripe API version, adjust if needed
           const periodEnd = (subscription as any).current_period_end;
 
           if (periodEnd) {
             currentPeriodEnd = new Date(periodEnd * 1000);
           }
         }
+      } catch (err) {
+        console.error("Failed to retrieve subscription:", err);
+      }
 
         await prisma.$transaction(async (tx) => {
           await tx.pendingRegistration.update({
