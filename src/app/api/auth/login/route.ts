@@ -14,7 +14,7 @@ const LoginSchema = z.object({
 
 const AUTH_COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
+  secure: true,
   sameSite: "lax" as const,
   path: "/",
   maxAge: 60 * 60 * 24 * 7, // 7 days
@@ -72,6 +72,7 @@ export async function POST(req: Request) {
 
     const response = NextResponse.json({
     status: "ok",
+    token,
     redirect:
       userType === "admin"
         ? "/admin/dashboard"
