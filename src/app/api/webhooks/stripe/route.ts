@@ -15,7 +15,16 @@ function generateVerificationCode() {
 
 export async function POST(req: Request) {
   console.log("🔥 WEBHOOK HIT");
-  try {
+  console.log("🔥 WEBHOOK HIT");
+
+  const signature = req.headers.get("stripe-signature");
+
+  console.log("Stripe Signature:", signature);
+
+  const body = await req.text();
+
+  console.log("Body length:", body.length);
+    try {
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
     if (!webhookSecret) {
@@ -31,7 +40,7 @@ export async function POST(req: Request) {
       );
 
     const body = await req.text();
-  const event = stripe.webhooks.constructEvent(
+    const event = stripe.webhooks.constructEvent(
       body,
       signature,
       webhookSecret
