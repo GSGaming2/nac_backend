@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   PendingRegistration: 'PendingRegistration',
   User: 'User',
+  PasswordResetToken: 'PasswordResetToken',
   Admin: 'Admin'
 } as const
 
@@ -103,10 +104,25 @@ export const UserScalarFieldEnum = {
   currentPeriodEnd: 'currentPeriodEnd',
   activatedAt: 'activatedAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  submissionCount: 'submissionCount',
+  submissionLimit: 'submissionLimit'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const PasswordResetTokenScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  tokenHash: 'tokenHash',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
 
 
 export const AdminScalarFieldEnum = {

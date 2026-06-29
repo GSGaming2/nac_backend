@@ -3,7 +3,7 @@ import { z } from "zod";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/app/lib/prisma";
 import { Prisma } from "@/generated/client-mysql/client";
-import { signAuthToken } from "@/app/lib/auth";
+import { signAuthToken } from "@/app/lib/auth/auth";
 
 const AdminRegisterSchema = z.object({
   username: z.string().min(3),

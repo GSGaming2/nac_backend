@@ -3,7 +3,7 @@ import { z } from "zod";
 import bcrypt from "bcryptjs";
 
 import { prisma } from "@/app/lib/prisma";
-import { signAuthToken } from "@/app/lib/auth";
+import { signAuthToken } from "@/app/lib/auth/auth";
 
 const VerifySchema = z.object({
   email: z.string().email(),

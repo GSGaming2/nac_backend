@@ -4,7 +4,7 @@ import { rateLimit } from "@/app/lib/rateLimit";
 import bcrypt from "bcryptjs";
 
 import { prisma } from "@/app/lib/prisma";
-import { signAuthToken } from "@/app/lib/auth";
+import { signAuthToken } from "@/app/lib/auth/auth";
 
 const LoginSchema = z.object({
   email: z.string().trim().toLowerCase().email(),

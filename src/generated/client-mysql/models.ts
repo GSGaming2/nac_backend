@@ -10,5 +10,6 @@
  */
 export type * from './models/PendingRegistration'
 export type * from './models/User'
+export type * from './models/PasswordResetToken'
 export type * from './models/Admin'
 export type * from './commonInputTypes'

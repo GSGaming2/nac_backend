@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 
 import { prisma } from "@/app/lib/prisma";
-import { sendVerificationCodeEmail } from "@/app/lib/email";
+import { sendVerificationCodeEmail } from "@/app/lib/email/email";
 
 export const runtime = "nodejs";
 

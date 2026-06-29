@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { verifyAuthToken } from "./auth";
+import { verifyAuthToken } from "./auth/auth";
 
 export async function requireAuth() {
   const token = (await cookies()).get("auth_token")?.value;

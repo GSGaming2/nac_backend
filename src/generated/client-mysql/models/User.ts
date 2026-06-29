@@ -28,10 +28,14 @@ export type AggregateUser = {
 
 export type UserAvgAggregateOutputType = {
   id: number | null
+  submissionCount: number | null
+  submissionLimit: number | null
 }
 
 export type UserSumAggregateOutputType = {
   id: number | null
+  submissionCount: number | null
+  submissionLimit: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -47,6 +51,8 @@ export type UserMinAggregateOutputType = {
   activatedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  submissionCount: number | null
+  submissionLimit: number | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -62,6 +68,8 @@ export type UserMaxAggregateOutputType = {
   activatedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  submissionCount: number | null
+  submissionLimit: number | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -77,16 +85,22 @@ export type UserCountAggregateOutputType = {
   activatedAt: number
   createdAt: number
   updatedAt: number
+  submissionCount: number
+  submissionLimit: number
   _all: number
 }
 
 
 export type UserAvgAggregateInputType = {
   id?: true
+  submissionCount?: true
+  submissionLimit?: true
 }
 
 export type UserSumAggregateInputType = {
   id?: true
+  submissionCount?: true
+  submissionLimit?: true
 }
 
 export type UserMinAggregateInputType = {
@@ -102,6 +116,8 @@ export type UserMinAggregateInputType = {
   activatedAt?: true
   createdAt?: true
   updatedAt?: true
+  submissionCount?: true
+  submissionLimit?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -117,6 +133,8 @@ export type UserMaxAggregateInputType = {
   activatedAt?: true
   createdAt?: true
   updatedAt?: true
+  submissionCount?: true
+  submissionLimit?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -132,6 +150,8 @@ export type UserCountAggregateInputType = {
   activatedAt?: true
   createdAt?: true
   updatedAt?: true
+  submissionCount?: true
+  submissionLimit?: true
   _all?: true
 }
 
@@ -234,6 +254,8 @@ export type UserGroupByOutputType = {
   activatedAt: Date | null
   createdAt: Date
   updatedAt: Date
+  submissionCount: number
+  submissionLimit: number | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -272,6 +294,8 @@ export type UserWhereInput = {
   activatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  submissionCount?: Prisma.IntFilter<"User"> | number
+  submissionLimit?: Prisma.IntNullableFilter<"User"> | number | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -287,6 +311,8 @@ export type UserOrderByWithRelationInput = {
   activatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  submissionCount?: Prisma.SortOrder
+  submissionLimit?: Prisma.SortOrderInput | Prisma.SortOrder
   _relevance?: Prisma.UserOrderByRelevanceInput
 }
 
@@ -306,6 +332,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   activatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  submissionCount?: Prisma.IntFilter<"User"> | number
+  submissionLimit?: Prisma.IntNullableFilter<"User"> | number | null
 }, "id" | "email" | "stripeSubscriptionId">
 
 export type UserOrderByWithAggregationInput = {
@@ -321,6 +349,8 @@ export type UserOrderByWithAggregationInput = {
   activatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  submissionCount?: Prisma.SortOrder
+  submissionLimit?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -344,6 +374,8 @@ export type UserScalarWhereWithAggregatesInput = {
   activatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  submissionCount?: Prisma.IntWithAggregatesFilter<"User"> | number
+  submissionLimit?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
 }
 
 export type UserCreateInput = {
@@ -358,6 +390,8 @@ export type UserCreateInput = {
   activatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  submissionCount?: number
+  submissionLimit?: number | null
 }
 
 export type UserUncheckedCreateInput = {
@@ -373,6 +407,8 @@ export type UserUncheckedCreateInput = {
   activatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  submissionCount?: number
+  submissionLimit?: number | null
 }
 
 export type UserUpdateInput = {
@@ -387,6 +423,8 @@ export type UserUpdateInput = {
   activatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  submissionLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type UserUncheckedUpdateInput = {
@@ -402,6 +440,8 @@ export type UserUncheckedUpdateInput = {
   activatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  submissionLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type UserCreateManyInput = {
@@ -417,6 +457,8 @@ export type UserCreateManyInput = {
   activatedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  submissionCount?: number
+  submissionLimit?: number | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -431,6 +473,8 @@ export type UserUpdateManyMutationInput = {
   activatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  submissionLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -446,6 +490,8 @@ export type UserUncheckedUpdateManyInput = {
   activatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submissionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  submissionLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type UserOrderByRelevanceInput = {
@@ -467,10 +513,14 @@ export type UserCountOrderByAggregateInput = {
   activatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  submissionCount?: Prisma.SortOrder
+  submissionLimit?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  submissionCount?: Prisma.SortOrder
+  submissionLimit?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -486,6 +536,8 @@ export type UserMaxOrderByAggregateInput = {
   activatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  submissionCount?: Prisma.SortOrder
+  submissionLimit?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -501,10 +553,14 @@ export type UserMinOrderByAggregateInput = {
   activatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  submissionCount?: Prisma.SortOrder
+  submissionLimit?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  submissionCount?: Prisma.SortOrder
+  submissionLimit?: Prisma.SortOrder
 }
 
 export type EnumRoleFieldUpdateOperationsInput = {
@@ -527,6 +583,14 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -542,6 +606,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   activatedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  submissionCount?: boolean
+  submissionLimit?: boolean
 }, ExtArgs["result"]["user"]>
 
 
@@ -559,9 +625,11 @@ export type UserSelectScalar = {
   activatedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  submissionCount?: boolean
+  submissionLimit?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "role" | "plan" | "stripeCustomerId" | "stripeSubscriptionId" | "subscriptionStatus" | "currentPeriodEnd" | "activatedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "role" | "plan" | "stripeCustomerId" | "stripeSubscriptionId" | "subscriptionStatus" | "currentPeriodEnd" | "activatedAt" | "createdAt" | "updatedAt" | "submissionCount" | "submissionLimit", ExtArgs["result"]["user"]>
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
@@ -579,6 +647,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     activatedAt: Date | null
     createdAt: Date
     updatedAt: Date
+    submissionCount: number
+    submissionLimit: number | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -960,6 +1030,8 @@ export interface UserFieldRefs {
   readonly activatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly submissionCount: Prisma.FieldRef<"User", 'Int'>
+  readonly submissionLimit: Prisma.FieldRef<"User", 'Int'>
 }
     
 

@@ -76,7 +76,24 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+  submissionCount Int @default(0)
+  submissionLimit Int?
+
   @@map("users")
+}
+
+model PasswordResetToken {
+  id         String   @id @default(cuid())
+  email      String
+  tokenHash  String   @unique
+  expiresAt  DateTime
+  usedAt     DateTime?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([email])
+  @@index([expiresAt])
+  @@map("password_reset_tokens")
 }
 
 model Admin {
