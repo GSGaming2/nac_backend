@@ -85,10 +85,10 @@ export async function POST(req: Request) {
       line_items: [{ price: priceId, quantity: 1 }],
       customer_email: pending.email,
 
-      success_url: `${window.location.origin}/register/verify-code?email=${encodeURIComponent(
+      success_url: `${process.env.FRONTEND_URL}/register/verify-code?email=${encodeURIComponent(
         pending.email
       )}&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${window.location.origin}/register`,
+      cancel_url: `${process.env.FRONTEND_URL}/register`,
 
       metadata: {
         pendingRegistrationId: pending.id,
