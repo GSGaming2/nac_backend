@@ -61,6 +61,8 @@ export async function POST(req: Request) {
       if (existingUser) {
         throw new Error("USER_ALREADY_EXISTS");
       }
+
+      const submissionLimit = pending.plan === "MONTHLY" ? 10 : null;
       
       const user = await tx.user.create({
         data: {
@@ -70,6 +72,8 @@ export async function POST(req: Request) {
           role: "user",
 
           plan: pending.plan,
+
+          submissionLimit,
 
           stripeCustomerId:
             pending.stripeCustomerId ?? undefined,
