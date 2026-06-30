@@ -74,7 +74,8 @@ export async function sendPasswordResetEmail(
   if (!process.env.RESEND_FROM_EMAIL) {
     throw new Error("Missing RESEND_FROM_EMAIL");
   }
-
+  const resetLink =
+    `${process.env.FRONTEND_URL}/reset-password?token=${code}`;
   const { data, error } = await resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL,
     to: email,
@@ -96,7 +97,7 @@ export async function sendPasswordResetEmail(
             margin:30px 0;
           "
         >
-          ${code}
+          <a href="${resetLink}">${resetLink}</a>
         </div>
         <p>
           This code expires in <strong>15 minutes</strong>.
