@@ -1,19 +1,12 @@
 import { NextResponse } from "next/server";
 
 import { prisma } from "@/app/lib/prisma";
-import { requireAuth } from "@/app/lib/requireAuth";
+import { AuthError, requireUser } from "@/app/lib/auth/requireAuth";
 import { SUBMISSION_LIMITS } from "@/app/lib/constants/submissionLimits";
 
 export async function GET() {
   try {
-    const auth = await requireAuth();
-
-    if (auth.type !== "user") {
-      return NextResponse.json({
-        status: "error",
-        message: "Only users can submit.",
-      }, { status: 403 });
-    }
+    const auth = await requireUser();
 
     const user = await prisma.user.findUnique({
       where: { id: Number(auth.sub) },
@@ -47,11 +40,11 @@ export async function GET() {
       },
     });
   } catch (error) {
-    if (error instanceof Error && error.message === "NOT_AUTHENTICATED") {
+    if (error instanceof AuthError) {
       return NextResponse.json({
         status: "error",
-        message: "Not authenticated.",
-      }, { status: 401 });
+        message: error.message,
+      }, { status: error.status });
     }
 
     console.error("Check Submissions Error:", error);

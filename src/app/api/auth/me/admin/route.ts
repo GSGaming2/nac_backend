@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireAdmin } from "@/app/lib/requireAuth";
+import { AuthError, requireAdmin } from "@/app/lib/auth/requireAuth";
 import { prisma } from "@/app/lib/prisma";
 
 export async function GET() {
@@ -8,11 +8,10 @@ export async function GET() {
     const users = await prisma.user.findMany();
 
     return NextResponse.json(users);
-  } catch (e: any) {
-    if (e.message === "NOT_AUTHENTICATED")
-      return NextResponse.json({ status: "error", message: "Unauthorized" }, { status: 401 });
-    if (e.message === "FORBIDDEN")
-      return NextResponse.json({ status: "error", message: "Forbidden" }, { status: 403 });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      return NextResponse.json({ status: "error", message: error.message }, { status: error.status });
+    }
     return NextResponse.json({ status: "error", message: "Server error" }, { status: 500 });
   }
 }

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { requireAuth } from "@/app/lib/requireAuth";
+import { AuthError, requireUser } from "@/app/lib/auth/requireAuth";
 import { prisma } from "@/app/lib/prisma";
 
 import {
@@ -13,13 +13,7 @@ export const runtime = "nodejs";
 
 export async function POST(req: Request) {
   try {
-    const auth = await requireAuth();
-
-    if (auth.type !== "user") return NextResponse.json({
-          status: "error",
-          message: "Only users can upload evidence.",
-        },{ status: 403 }
-      );
+    const auth = await requireUser();
 
     const user = await prisma.user.findUnique({
       where: {
@@ -138,17 +132,11 @@ export async function POST(req: Request) {
       urls: uploadedUrls.filter(Boolean),
     });
   } catch (error) {
-    if (
-      error instanceof Error &&
-      error.message === "NOT_AUTHENTICATED"
-    ) {
-      return NextResponse.json(
-        {
-          status: "error",
-          message: "Not authenticated.",
-        },
-        { status: 401 }
-      );
+    if (error instanceof AuthError) {
+      return NextResponse.json({
+        status: "error",
+        message: error.message,
+      }, { status: error.status });
     }
 
     console.error("Upload Evidence Error:", error);

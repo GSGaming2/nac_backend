@@ -1,22 +1,12 @@
 import { NextResponse } from "next/server";
 
 import { prisma } from "@/app/lib/prisma";
-import { requireAuth } from "@/app/lib/requireAuth";
+import { AuthError, requireUser } from "@/app/lib/auth/requireAuth";
 import { SUBMISSION_LIMITS } from "@/app/lib/constants/submissionLimits";
 
 export async function POST() {
   try {
-    const auth = await requireAuth();
-
-    if (auth.type !== "user") {
-      return NextResponse.json(
-        {
-          status: "error",
-          message: "Only users can submit.",
-        },
-        { status: 403 }
-      );
-    }
+    const auth = await requireUser();
 
     const result = await prisma.$transaction(async (tx) => {
       const user = await tx.user.findUnique({
@@ -112,10 +102,10 @@ export async function POST() {
       status: result.status,
     });
   } catch (error) {
-    if (error instanceof Error && error.message === "NOT_AUTHENTICATED") return NextResponse.json({
+    if (error instanceof AuthError) return NextResponse.json({
           status: "error",
-          message: "Not authenticated.",
-        },{ status: 401 });
+          message: error.message,
+        },{ status: error.status });
 
     console.error("Submission Error:", error);
 

@@ -1,26 +1,16 @@
 import { NextResponse } from "next/server";
 
 import { prisma } from "@/app/lib/prisma";
-import { requireAuth } from "@/app/lib/requireAuth";
+import { AuthError, requireUser } from "@/app/lib/auth/requireAuth";
 
 export async function POST() {
   try {
-    const auth = await requireAuth();
-
-    if (auth.type !== "user") {
-      return NextResponse.json(
-        {
-          status: "error",
-          message: "Only users can complete submissions.",
-        },
-        { status: 403 }
-      );
-    }
+    const auth = await requireUser();
 
     const updatedUser = await prisma.$transaction(async (tx) => {
       const user = await tx.user.findUnique({
         where: {
-          id: Number(auth.sub), // If your User.id is String, remove Number()
+          id: Number(auth.sub),
         },
         select: {
           id: true,
@@ -47,37 +37,26 @@ export async function POST() {
       });
     });
 
-    return NextResponse.json(
-      {
-        status: "ok",
-        message: "Submission recorded successfully.",
-        data: {
-          submissionCount: updatedUser.submissionCount,
-        },
+    return NextResponse.json({
+      status: "ok",
+      message: "Submission recorded successfully.",
+      data: {
+        submissionCount: updatedUser.submissionCount,
       },
-      { status: 200 }
-    );
+    }, { status: 200 });
   } catch (error) {
-    if (error instanceof Error) {
-      if (error.message === "NOT_AUTHENTICATED") {
-        return NextResponse.json(
-          {
-            status: "error",
-            message: "Not authenticated.",
-          },
-          { status: 401 }
-        );
-      }
+    if (error instanceof AuthError) {
+      return NextResponse.json({
+        status: "error",
+        message: error.message,
+      }, { status: error.status });
+    }
 
-      if (error.message === "USER_NOT_FOUND") {
-        return NextResponse.json(
-          {
-            status: "error",
-            message: "User not found.",
-          },
-          { status: 404 }
-        );
-      }
+    if (error instanceof Error && error.message === "USER_NOT_FOUND") {
+      return NextResponse.json({
+        status: "error",
+        message: "User not found.",
+      }, { status: 404 });
     }
 
     console.error("Complete Submission Error:", error);
